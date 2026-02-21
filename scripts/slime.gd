@@ -82,6 +82,7 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 
 func drop_item():
 	var drop = health_pickup_scene.instantiate()
+	drop.health_effect = 10
 	drop.position = position
 	var level_root = get_parent().get_parent()
 	var items_node = level_root.get_node("Items")

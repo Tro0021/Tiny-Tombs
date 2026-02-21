@@ -227,7 +227,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xrus2")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_down",
 "speed": 10.0
 }, {
@@ -244,7 +244,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ghshk")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_right",
 "speed": 10.0
 }, {
@@ -261,7 +261,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6yhqa")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_up",
 "speed": 10.0
 }, {
@@ -278,7 +278,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l18t7")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -438,9 +438,9 @@ script = ExtResource("1_ivqcw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1699975547]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_haw2w")
-animation = &"idle_down"
-frame = 5
-frame_progress = 0.64785695
+animation = &"die"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=679617211]
 position = Vector2(2, -8)

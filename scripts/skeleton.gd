@@ -118,6 +118,7 @@ func _on_sight_body_exited(body: Node2D) -> void:
 # -----------------------
 
 func take_damage(damage: int, attacker_position: Vector2) -> void:
+	print("Damage")
 	if not is_alive:
 		return
 	
@@ -139,13 +140,20 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 # -----------------------
 
 func die() -> void:
+	if not is_alive:
+		return
+	
 	is_alive = false
 	velocity = Vector2.ZERO
-	animated_sprite_2d.play("die")
+	
+	# Disable ALL logic instantly
+	set_physics_process(false)
 	
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Sight/CollisionShape2D.set_deferred("disabled", true)
 	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
+	
+	animated_sprite_2d.play("die")
 	
 	if randf() <= DROP_CHANCE:
 		drop_item()
@@ -153,6 +161,7 @@ func die() -> void:
 
 func drop_item():
 	var drop = health_pickup_scene.instantiate()
+	drop.health_effect = 25
 	drop.position = global_position
 	var level_root = get_parent().get_parent()
 	var items_node = level_root.get_node("Items")
@@ -164,6 +173,8 @@ func drop_item():
 # -----------------------
 
 func play_animation(prefix: String, dir: Vector2) -> void:
+	if not is_alive:
+		return
 	if abs(dir.x) > abs(dir.y):
 		animated_sprite_2d.flip_h = dir.x < 0
 		animated_sprite_2d.play(prefix + "_right")

@@ -102,8 +102,8 @@ func update_hitbox_offset() -> void:
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if is_attacking and body.name.begins_with("slime"):
-		body.take_damage(strength, position)
+	if is_attacking and body.has_method("take_damage"):
+		body.take_damage(strength, global_position)
 
 func heal(amount: int) -> void:
 	health += amount
