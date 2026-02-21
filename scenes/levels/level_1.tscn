@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://rxgvwammohy6"]
+
+[ext_resource type="PackedScene" uid="uid://0n6yktypsuey" path="res://scenes/levels/base_level.tscn" id="1_m802k"]
+
+[node name="LevelRoot" unique_id=1710684034 instance=ExtResource("1_m802k")]
+
+[node name="Player" parent="." index="2" unique_id=1555825602]
+position = Vector2(112, 336)
+
+[node name="slime" parent="Enemies" parent_id_path=PackedInt32Array(142980870) index="0" unique_id=516378811]
+position = Vector2(232, 480)

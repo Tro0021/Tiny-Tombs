@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cx84bdvdn6o3i"]
+
+[ext_resource type="Script" uid="uid://b1wul2x5q4ed6" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://cecjh01qukyvt" path="res://scenes/hud.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://0n6yktypsuey" path="res://scenes/levels/base_level.tscn" id="3_sugp2"]
+[ext_resource type="AudioStream" uid="uid://cjkk8evkr3irp" path="res://assets/audio/766921__victor_natas__the-adventure.wav" id="4_jyhfs"]
+
+[node name="Main" type="Node2D" unique_id=63593938]
+script = ExtResource("1_0wfyh")
+
+[node name="LevelRoot" parent="." unique_id=1710684034 instance=ExtResource("3_sugp2")]
+z_index = -1
+
+[node name="HUD" parent="." unique_id=832273518 instance=ExtResource("3_jyhfs")]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=364534079]
+stream = ExtResource("4_jyhfs")
+autoplay = true
