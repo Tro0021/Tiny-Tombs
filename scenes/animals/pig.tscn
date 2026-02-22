@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://vm5mq1jmvwsa"]
+
+[ext_resource type="PackedScene" uid="uid://deya7n7sabwoa" path="res://scenes/animals/animal_base.tscn" id="1_ciw3d"]
+[ext_resource type="Texture2D" uid="uid://belafdos7v2dh" path="res://assets/images/animals/Pig.png" id="2_1xofs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vapmy"]
+atlas = ExtResource("2_1xofs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01ew6"]
+atlas = ExtResource("2_1xofs")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtl3j"]
+atlas = ExtResource("2_1xofs")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1uqc"]
+atlas = ExtResource("2_1xofs")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0lnhb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vapmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01ew6")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtl3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1uqc")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="Animal" unique_id=495367675 instance=ExtResource("1_ciw3d")]
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=26618498]
+sprite_frames = SubResource("SpriteFrames_0lnhb")
+frame_progress = 0.0

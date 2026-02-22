@@ -12,6 +12,7 @@ var alive: bool = true
 var max_health: int
 var health: int
 var strength: int = 20
+var invincible: bool = false
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var swordswing: AudioStreamPlayer2D = $swordswing
@@ -25,10 +26,15 @@ func _ready() -> void:
 	max_health = PlayerStats.max_health
 	
 	hitbox_offset = hitbox.position
+	
+	emit_signal("health_changed", health)
+	
+	invincible = true
+	await get_tree().create_timer(1.0).timeout
+	invincible = false
 
 func _physics_process(_delta: float) -> void:
 	
-	hitbox.monitoring = false
 	if alive:
 		if Input.is_action_just_pressed("attack") and not is_attacking:
 			attack()
@@ -65,14 +71,17 @@ func process_animation() -> void:
 
 
 func play_animation(prefix : String, dir: Vector2) -> void:
+	var anim_name
+	
 	if dir.x != 0:
 		animated_sprite_2d.flip_h = dir.x < 0
-		animated_sprite_2d.play(prefix + "_right")
+		anim_name = prefix + "_right"
 	elif dir.y < 0:
-		animated_sprite_2d.play(prefix + "_up")
-	elif dir.y > 0:
-		animated_sprite_2d.play(prefix + "_down")
-
+		anim_name = prefix + "_up"
+	else:
+		anim_name = prefix + "_down"
+	if animated_sprite_2d.animation != anim_name:
+		animated_sprite_2d.play(anim_name)
 
 func attack() -> void:
 	is_attacking = true
@@ -84,6 +93,7 @@ func attack() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if is_attacking:
 		is_attacking = false
+		hitbox.monitoring = false
 
 
 func update_hitbox_offset() -> void:
@@ -106,26 +116,46 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		body.take_damage(strength, global_position)
 
 func heal(amount: int) -> void:
-	health += amount
-	if health >= max_health:
-		health = max_health
+	health = clamp(health + amount, 0, max_health)
 	PlayerStats.health = health
 	emit_signal("health_changed", health)
 
 
 func take_damage(amount: int) -> void:
-	if alive:
-		if damage_cooldown.time_left > 0:
-			return
-		health -= amount
-		PlayerStats.health = health
-		emit_signal("health_changed", health)
-		if health <= 0:
-			die()
-		damage_cooldown.start()
+	if not alive:
+		return
+	
+	if invincible:
+		return
+
+	if damage_cooldown.time_left > 0:
+		return
+
+	print("Damage taken:", amount)
+
+	health -= amount
+	print("Current health:", health)
+
+	PlayerStats.health = health
+	emit_signal("health_changed", health)
+
+	if health <= 0:
+		die()
+		return
+
+	damage_cooldown.start()
 
 func die() -> void:
-	animated_sprite_2d.play("dying")
+	if not alive:
+		return
+
+	print("die() called")
+
 	alive = false
-	await animated_sprite_2d.animation_finished
+	velocity = Vector2.ZERO
+
+	$CollisionShape2D.disabled = true
+	$Hitbox.monitoring = false
+
+	animated_sprite_2d.play("dying")
 	died.emit()

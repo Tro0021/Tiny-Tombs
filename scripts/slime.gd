@@ -16,6 +16,8 @@ var health_pickup_scene = preload("res://scenes/health_pickup.tscn")
 @onready var health_bar: Node2D = $HealthBar
 @onready var attack_timer: Timer = $AttackTimer
 
+func _ready() -> void:
+	health_bar.initialize(health, health)
 
 func _physics_process(delta: float) -> void:
 	if is_alive and target:
@@ -31,6 +33,11 @@ func _attack(delta: float) -> void:
 func take_damage(damage: int, attacker_position: Vector2) -> void:
 	health -= damage
 	health_bar.update_health(health)
+	
+	animated_sprite_2d.modulate = Color(1, 0.4, 0.4)
+	await get_tree().create_timer(0.1).timeout
+	animated_sprite_2d.modulate = Color(1, 1, 1)
+	
 	if health <= 0:
 		_die()
 	else:

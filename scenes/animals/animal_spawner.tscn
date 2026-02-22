@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bmu42kb5ptt3r"]
+
+[ext_resource type="Script" uid="uid://f2nosnx3mf8f" path="res://scripts/animal_spawner.gd" id="1_rgr2p"]
+[ext_resource type="PackedScene" uid="uid://b34w4hokyf004" path="res://scenes/animals/sheep.tscn" id="2_567qe"]
+[ext_resource type="PackedScene" uid="uid://0ocwtm65xeg3" path="res://scenes/animals/cow.tscn" id="3_x4t2q"]
+[ext_resource type="PackedScene" uid="uid://c4gosld55bra6" path="res://scenes/animals/chicken.tscn" id="4_fmq18"]
+[ext_resource type="PackedScene" uid="uid://vm5mq1jmvwsa" path="res://scenes/animals/pig.tscn" id="5_34vtw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gym1y"]
+
+[node name="AnimalSpawner" type="Node2D" unique_id=517056663]
+position = Vector2(163, 137)
+script = ExtResource("1_rgr2p")
+animal_scenes = Array[PackedScene]([ExtResource("2_567qe"), ExtResource("2_567qe"), ExtResource("3_x4t2q"), ExtResource("3_x4t2q"), ExtResource("4_fmq18"), ExtResource("4_fmq18"), ExtResource("5_34vtw"), ExtResource("5_34vtw")])
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972858771]
+scale = Vector2(16.293688, 13.715692)
+shape = SubResource("RectangleShape2D_gym1y")

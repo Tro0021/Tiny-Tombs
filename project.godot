@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Cute Rpg"
+config/name="Tiny Tombs"
 run/main_scene="uid://cx84bdvdn6o3i"
 config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="uid://d3qhe7ubqcapv"
 
 [autoload]
 

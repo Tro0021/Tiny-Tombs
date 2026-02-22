@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://deya7n7sabwoa"]
+
+[ext_resource type="Script" uid="uid://dcj3b81sbglw4" path="res://scripts/animal.gd" id="1_5rh77"]
+[ext_resource type="Texture2D" uid="uid://c8cigq8j24e45" path="res://assets/images/animals/Chicken.png" id="2_fnhjl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk2y4"]
+atlas = ExtResource("2_fnhjl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15ow8"]
+atlas = ExtResource("2_fnhjl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daq5g"]
+atlas = ExtResource("2_fnhjl")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vsg5"]
+atlas = ExtResource("2_fnhjl")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_75yow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk2y4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15ow8")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daq5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vsg5")
+}],
+"loop": true,
+"name": &"run",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ox33h"]
+size = Vector2(39, 39)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_voalo"]
+radius = 50.0
+
+[node name="Animal" type="CharacterBody2D" unique_id=495367675]
+script = ExtResource("1_5rh77")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=26618498]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_75yow")
+animation = &"run"
+frame_progress = 0.27416882
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=408680134]
+position = Vector2(1.5, -1.5)
+shape = SubResource("RectangleShape2D_ox33h")
+
+[node name="FearAera" type="Area2D" parent="." unique_id=287270032]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FearAera" unique_id=1953200418]
+scale = Vector2(3, 3)
+shape = SubResource("CircleShape2D_voalo")

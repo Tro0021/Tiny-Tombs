@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://b34w4hokyf004"]
+
+[ext_resource type="PackedScene" uid="uid://deya7n7sabwoa" path="res://scenes/animals/animal_base.tscn" id="1_ntctc"]
+[ext_resource type="Texture2D" uid="uid://ctqlw1txjp6fc" path="res://assets/images/animals/Sheep.png" id="2_ag106"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbeb1"]
+atlas = ExtResource("2_ag106")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnrcd"]
+atlas = ExtResource("2_ag106")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thsxa"]
+atlas = ExtResource("2_ag106")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b10s4"]
+atlas = ExtResource("2_ag106")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bok78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbeb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnrcd")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thsxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b10s4")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[node name="Animal" unique_id=495367675 instance=ExtResource("1_ntctc")]
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=26618498]
+sprite_frames = SubResource("SpriteFrames_bok78")
+frame_progress = 0.0

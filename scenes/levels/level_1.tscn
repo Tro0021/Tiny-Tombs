@@ -4,8 +4,11 @@
 
 [node name="LevelRoot" unique_id=1710684034 instance=ExtResource("1_m802k")]
 
-[node name="Player" parent="." index="2" unique_id=1555825602]
-position = Vector2(112, 336)
-
 [node name="slime" parent="Enemies" parent_id_path=PackedInt32Array(142980870) index="0" unique_id=516378811]
-position = Vector2(232, 480)
+position = Vector2(464, 768)
+
+[node name="Skeleton" parent="Enemies" parent_id_path=PackedInt32Array(142980870) index="1" unique_id=187493634]
+position = Vector2(816, 496)
+
+[node name="Spawn" type="Node2D" parent="." index="6" unique_id=759282790]
+position = Vector2(208, 344)

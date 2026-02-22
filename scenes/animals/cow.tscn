@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://0ocwtm65xeg3"]
+
+[ext_resource type="PackedScene" uid="uid://deya7n7sabwoa" path="res://scenes/animals/animal_base.tscn" id="1_a5y40"]
+[ext_resource type="Texture2D" uid="uid://d6souskmcihv" path="res://assets/images/animals/Cow.png" id="2_r1mxx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t8lt"]
+atlas = ExtResource("2_r1mxx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhwbb"]
+atlas = ExtResource("2_r1mxx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc6fi"]
+atlas = ExtResource("2_r1mxx")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tue7c"]
+atlas = ExtResource("2_r1mxx")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfysl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6t8lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhwbb")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc6fi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tue7c")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}]
+
+[node name="Animal" unique_id=495367675 instance=ExtResource("1_a5y40")]
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=26618498]
+sprite_frames = SubResource("SpriteFrames_pfysl")
+frame_progress = 0.40468603

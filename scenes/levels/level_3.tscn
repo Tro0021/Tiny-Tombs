@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://0n6yktypsuey" path="res://scenes/levels/base_level.tscn" id="1_o8c3j"]
 
 [node name="LevelRoot" unique_id=1710684034 instance=ExtResource("1_o8c3j")]
+
+[node name="Spawn" type="Node2D" parent="." index="6" unique_id=713420830]
+position = Vector2(184, 352)

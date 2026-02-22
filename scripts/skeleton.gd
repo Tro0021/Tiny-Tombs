@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED: int = 120
 const KNOCKBACK_FORCE: int = 120
-const DROP_CHANCE: float = 0.3
+const DROP_CHANCE: float = 1.0
 const PATROL_DISTANCE: int = 80
 
 var is_alive: bool = true
@@ -25,6 +25,7 @@ var health_pickup_scene = preload("res://scenes/health_pickup.tscn")
 
 func _ready() -> void:
 	patrol_start_position = global_position
+	health_bar.initialize(health, health)
 
 
 func _physics_process(delta: float) -> void:
@@ -41,7 +42,7 @@ func _physics_process(delta: float) -> void:
 # PATROL
 # -----------------------
 
-func handle_patrol(delta: float) -> void:
+func handle_patrol(_delta: float) -> void:
 	var offset = global_position.x - patrol_start_position.x
 	
 	if abs(offset) >= PATROL_DISTANCE:
@@ -124,6 +125,10 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 	
 	health -= damage
 	health_bar.update_health(health)
+	
+	animated_sprite_2d.modulate = Color(1, 0.4, 0.4)
+	await  get_tree().create_timer(0.1).timeout
+	animated_sprite_2d.modulate = Color(1, 1,1)
 	
 	if health <= 0:
 		die()
