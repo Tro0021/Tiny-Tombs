@@ -422,7 +422,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(46.5, 20)
+size = Vector2(38.5, 71)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(60, 60)
@@ -436,7 +436,7 @@ sprite_frames = SubResource("SpriteFrames_ha2mi")
 animation = &"dying"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=287909109]
-position = Vector2(-4.75, 18)
+position = Vector2(-0.75, -7.5)
 shape = SubResource("RectangleShape2D_dqkch")
 
 [node name="swordswing" type="AudioStreamPlayer2D" parent="." unique_id=1823985192]

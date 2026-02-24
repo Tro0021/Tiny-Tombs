@@ -2,21 +2,27 @@ extends CharacterBody2D
 
 const SPEED: int = 100
 const KNOCKBACK_FORCE: int = 100
-const DROP_CHANCE: float = 0.25
+const DROP_CHANCE: float = 0.4
+const RESPAWN_TIME: float = 10.0
 
 var is_alive: bool = true
-var health: int = 100
-var strength: int = 10
+var health: int = 60
+var strength: int = 5
 var target = null
 var target_in_range: bool = false
 
+var spawn_position: Vector2
+var slime_scene := preload("res://scenes/slime.tscn")
+
 var health_pickup_scene = preload("res://scenes/health_pickup.tscn")
+var exp_orb_scene := preload("res://scenes/exp_orb.tscn")
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: Node2D = $HealthBar
 @onready var attack_timer: Timer = $AttackTimer
 
 func _ready() -> void:
+	spawn_position = global_position
 	health_bar.initialize(health, health)
 
 func _physics_process(delta: float) -> void:
@@ -50,15 +56,33 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 		tween.tween_property(self, "position", target_position, 0.5)
 	
 func _die() -> void:
+	if not is_alive:
+		return
+	
 	is_alive = false
 	animated_sprite_2d.play("die")
 	
+	var orb = exp_orb_scene.instantiate()
+	orb.global_position = global_position + Vector2(0, -10)
+	get_parent().add_child(orb)
+	
+	if randf() <= DROP_CHANCE:
+		drop_item()
+	
+	set_physics_process(false)
+	visible = false
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Sight/CollisionShape2D.set_deferred("disabled", true)
 	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 	
-	if randf() <= DROP_CHANCE:
-		drop_item()
+	await get_tree().create_timer(RESPAWN_TIME).timeout
+	respawn()
+
+func respawn() -> void:
+	var new_slime = slime_scene.instantiate()
+	new_slime.global_position = spawn_position
+	get_parent().add_child(new_slime)
+	queue_free()
 	
 func _on_sight_body_entered(body: Node2D) -> void:
 	if body.name == "Player":

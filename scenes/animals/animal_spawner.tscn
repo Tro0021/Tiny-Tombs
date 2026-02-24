@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://vm5mq1jmvwsa" path="res://scenes/animals/pig.tscn" id="5_34vtw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gym1y"]
+size = Vector2(78.431404, 52.43315)
 
 [node name="AnimalSpawner" type="Node2D" unique_id=517056663]
 position = Vector2(163, 137)
@@ -15,5 +16,6 @@ animal_scenes = Array[PackedScene]([ExtResource("2_567qe"), ExtResource("2_567qe
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972858771]
+position = Vector2(476.0315, 222.42154)
 scale = Vector2(16.293688, 13.715692)
 shape = SubResource("RectangleShape2D_gym1y")

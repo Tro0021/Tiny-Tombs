@@ -2,12 +2,12 @@ extends CharacterBody2D
 
 const SPEED: int = 120
 const KNOCKBACK_FORCE: int = 120
-const DROP_CHANCE: float = 1.0
+const DROP_CHANCE: float = 0.5
 const PATROL_DISTANCE: int = 80
 
 var is_alive: bool = true
-var health: int = 120
-var strength: int = 15
+var health: int = 80
+var strength: int = 10
 
 var target: Node2D = null
 var target_in_range: bool = false
@@ -17,6 +17,7 @@ var patrol_start_position: Vector2
 var patrol_direction: int = 1
 
 var health_pickup_scene = preload("res://scenes/health_pickup.tscn")
+var exp_orb_scene := preload("res://scenes/exp_orb.tscn")
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: Node2D = $HealthBar
@@ -37,11 +38,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		handle_patrol(delta)
 
-
-# -----------------------
-# PATROL
-# -----------------------
-
 func handle_patrol(_delta: float) -> void:
 	var offset = global_position.x - patrol_start_position.x
 	
@@ -54,11 +50,6 @@ func handle_patrol(_delta: float) -> void:
 	move_and_slide()
 	play_animation("run", last_direction)
 
-
-# -----------------------
-# CHASE + ATTACK
-# -----------------------
-
 func handle_chase() -> void:
 	var direction = (target.global_position - global_position).normalized()
 	last_direction = direction
@@ -70,7 +61,6 @@ func handle_chase() -> void:
 	else:
 		velocity = Vector2.ZERO
 
-
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and is_alive:
 		target_in_range = true
@@ -78,22 +68,15 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		body.take_damage(strength)
 		attack_timer.start()
 
-
 func _on_attack_timer_timeout() -> void:
 	if target and target_in_range and is_alive:
 		play_animation("attack", last_direction)
 		target.take_damage(strength)
 
-
 func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		target_in_range = false
 		attack_timer.stop()
-
-
-# -----------------------
-# DETECTION
-# -----------------------
 
 func _on_sight_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and is_alive:
@@ -105,18 +88,12 @@ func _on_sight_body_exited(body: Node2D) -> void:
 		target = null
 		target_in_range = false
 		attack_timer.stop()
-		
-		# Reset patrol cleanly
+
 		patrol_start_position = global_position
 		patrol_direction = 1
 		
 		velocity = Vector2.ZERO
 		play_animation("idle", last_direction)
-
-
-# -----------------------
-# DAMAGE
-# -----------------------
 
 func take_damage(damage: int, attacker_position: Vector2) -> void:
 	print("Damage")
@@ -139,16 +116,15 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 		var tween = create_tween()
 		tween.tween_property(self, "global_position", target_position, 0.2)
 
-
-# -----------------------
-# DEATH
-# -----------------------
-
 func die() -> void:
 	if not is_alive:
 		return
 	
 	is_alive = false
+	
+	var orb = exp_orb_scene.instantiate()
+	orb.global_position = global_position + Vector2(0, -10)
+	get_parent().add_child(orb)
 	velocity = Vector2.ZERO
 	
 	# Disable ALL logic instantly
@@ -171,11 +147,6 @@ func drop_item():
 	var level_root = get_parent().get_parent()
 	var items_node = level_root.get_node("Items")
 	items_node.call_deferred("add_child", drop)
-
-
-# -----------------------
-# ANIMATION SYSTEM
-# -----------------------
 
 func play_animation(prefix: String, dir: Vector2) -> void:
 	if not is_alive:

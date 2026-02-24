@@ -11,7 +11,7 @@ var hitbox_offset: Vector2
 var alive: bool = true
 var max_health: int
 var health: int
-var strength: int = 20
+var strength: int = 30
 var invincible: bool = false
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -21,7 +21,10 @@ var invincible: bool = false
 
 
 func _ready() -> void:
+	add_to_group("Player")
+	PlayerStats.leveled_up.connect(_on_level_up)
 	
+	strength = PlayerStats.strength
 	health = PlayerStats.health
 	max_health = PlayerStats.max_health
 	
@@ -113,6 +116,8 @@ func update_hitbox_offset() -> void:
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if is_attacking and body.has_method("take_damage"):
+		var damage_done = strength
+		print("Player dealt: ", damage_done)
 		body.take_damage(strength, global_position)
 
 func heal(amount: int) -> void:
@@ -159,3 +164,9 @@ func die() -> void:
 
 	animated_sprite_2d.play("dying")
 	died.emit()
+
+func _on_level_up():
+	max_health = PlayerStats.max_health
+	strength = PlayerStats.strength
+	health = max_health
+	emit_signal("health_changed", health)

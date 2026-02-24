@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var health_effect: int = 20
+@export var health_effect: int = 10
 
 @onready var collected_sound: AudioStreamPlayer2D = $CollectedSound
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
