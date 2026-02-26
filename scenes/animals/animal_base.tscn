@@ -51,6 +51,7 @@ size = Vector2(39, 39)
 radius = 50.0
 
 [node name="Animal" type="CharacterBody2D" unique_id=495367675]
+collision_mask = 3
 script = ExtResource("1_5rh77")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=26618498]
@@ -63,8 +64,9 @@ frame_progress = 0.27416882
 position = Vector2(1.5, -1.5)
 shape = SubResource("RectangleShape2D_ox33h")
 
-[node name="FearAera" type="Area2D" parent="." unique_id=287270032]
+[node name="FearArea" type="Area2D" parent="." unique_id=287270032]
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FearAera" unique_id=1953200418]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea" unique_id=1953200418]
 scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_voalo")

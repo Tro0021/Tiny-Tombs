@@ -115,10 +115,14 @@ func update_hitbox_offset() -> void:
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if is_attacking and body.has_method("take_damage"):
-		var damage_done = strength
-		print("Player dealt: ", damage_done)
-		body.take_damage(strength, global_position)
+	print("PHYSICS WORKING: Touched ", body.name)
+	
+	if body.has_method("take_damage"):
+		print("FUNCTION FOUND: This object can be damaged!")
+		if is_attacking:
+			body.take_damage(strength, global_position)
+		else:
+			print("ATTACK FAILED: is_attacking was false at moment of impact")
 
 func heal(amount: int) -> void:
 	health = clamp(health + amount, 0, max_health)

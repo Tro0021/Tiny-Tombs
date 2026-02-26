@@ -88,3 +88,11 @@ offset_top = 56.0
 offset_right = 104.0
 offset_bottom = 79.0
 scale = Vector2(2, 2)
+
+[node name="WorldLevel" type="Label" parent="." unique_id=1304119544]
+offset_left = 1064.0
+offset_top = 8.0
+offset_right = 1168.0
+offset_bottom = 31.0
+scale = Vector2(2, 2)
+horizontal_alignment = 1

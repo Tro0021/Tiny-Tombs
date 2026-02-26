@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cbvkd6gsd6ys0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duydu"]
+size = Vector2(2048, 2048)
+
+[node name="MiningArea" type="Node2D" unique_id=1110143779]
+
+[node name="RockSpawner" type="Node2D" parent="." unique_id=1919780378]
+
+[node name="SpawnArea" type="CollisionShape2D" parent="RockSpawner" unique_id=1704055218]
+shape = SubResource("RectangleShape2D_duydu")
+
+[node name="Exit" type="Area2D" parent="." unique_id=1783028425]
+
+[node name="Items" type="Node2D" parent="." unique_id=894306510]

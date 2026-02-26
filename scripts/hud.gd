@@ -7,6 +7,7 @@ var player
 @onready var exp_label: Label = $EXPLabel
 @onready var fade_overlay: ColorRect = $FadeOverlay
 @onready var hearts_container: HBoxContainer = $Hearts
+@onready var world_level: Label = $WorldLevel
 
 const HEART_FULL = preload("res://assets/images/UI/Heart_full.png")
 const HEART_HALF = preload("res://assets/images/UI/Heart_half.png")
@@ -14,7 +15,6 @@ const HEART_EMPTY = preload("res://assets/images/UI/Heart_empty.png")
 
 
 func set_player(p) -> void:
-	# Disconnect old player if exists
 	if player and player.health_changed.is_connected(_update_health):
 		player.health_changed.disconnect(_update_health)
 
@@ -24,16 +24,10 @@ func set_player(p) -> void:
 		player.health_changed.connect(_update_health)
 		_update_health(player.health)
 
-	# Connect EXP system once
 	if not PlayerStats.exp_changed.is_connected(update_exp):
 		PlayerStats.exp_changed.connect(update_exp)
 
 	update_exp()
-
-
-# -------------------------
-# ❤️ HEART SYSTEM
-# -------------------------
 
 func _update_health(new_health: int) -> void:
 	var hearts = hearts_container.get_children()
@@ -52,19 +46,12 @@ func _update_health(new_health: int) -> void:
 	if has_half and full_hearts < max_hearts:
 		hearts[full_hearts].texture = HEART_HALF
 
-
-# -------------------------
-# 📖 EXP TEXT SYSTEM
-# -------------------------
-
 func update_exp() -> void:
 	exp_label.text = "Level " + str(PlayerStats.level) + \
-	"  |  " + str(PlayerStats.current_exp) + " / " + str(PlayerStats.exp_to_next)
+	"  |  " + str(PlayerStats.current_exp) + " / " + str(PlayerStats.exp_to_next)
 
-
-# -------------------------
-# 🌫 FADE SYSTEM
-# -------------------------
+func update_world_text(text: String) -> void:
+	world_level.text = text
 
 func fade(to_alpha: float, text: String = "") -> void:
 	if text != "":
